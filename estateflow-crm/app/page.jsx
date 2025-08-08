@@ -75,6 +75,8 @@ export default function HomePage() {
         </div>
       </section>
 
+
+
       {/* CTA Footer */}
       <section className="py-12 px-6 bg-gray-800 text-white text-center">
         <h2 className="text-2xl font-bold mb-4">Ready to Grow Your Real Estate Business?</h2>
