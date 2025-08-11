@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import '@/app/globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 

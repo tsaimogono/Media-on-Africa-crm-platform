@@ -1,5 +1,6 @@
 // app/layout.jsx
 import ClientLayout from './layout-client';
+import '@/app/globals.css';
 
 export default function RootLayout({ children }) {
   return (
