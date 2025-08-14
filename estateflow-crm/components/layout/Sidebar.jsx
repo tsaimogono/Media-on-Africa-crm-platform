@@ -3,17 +3,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LayoutDashboard, Phone, Users, Building2, Briefcase, CheckSquare, Settings } from 'lucide-react';
 
 const menuItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: '📊', roles: ['admin', 'agent', 'client'] },
-  { name: 'Leads', href: '/leads', icon: 'PropertyParams', roles: ['admin', 'agent'] },
-  { name: 'Clients', href: '/clients', icon: '👥', roles: ['admin', 'agent'] },
-  { name: 'Properties', href: '/properties', icon: '🏠', roles: ['admin', 'agent'] },
-  { name: 'Deals', href: '/deals', icon: '💼', roles: ['admin', 'agent'] },
-  { name: 'Tasks', href: '/tasks', icon: '✅', roles: ['admin', 'agent'] },
-  { name: 'Settings', href: '/settings', icon: '⚙️', roles: ['admin'] },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'agent', 'client'] },
+  { name: 'Leads', href: '/leads', icon: Phone, roles: ['admin', 'agent'] },
+  { name: 'Clients', href: '/clients', icon: Users, roles: ['admin', 'agent'] },
+  { name: 'Properties', href: '/properties', icon: Building2, roles: ['admin', 'agent'] },
+  { name: 'Deals', href: '/deals', icon: Briefcase, roles: ['admin', 'agent'] },
+  { name: 'Tasks', href: '/tasks', icon: CheckSquare, roles: ['admin', 'agent'] },
+  { name: 'Settings', href: '/settings', icon: Settings, roles: ['admin'] },
 ];
-
 export default function Sidebar({ user, isOpen, onClose }) {
   const pathname = usePathname();
 
@@ -57,7 +57,9 @@ export default function Sidebar({ user, isOpen, onClose }) {
                       }
                     `}
                   >
-                    <span className="text-lg">{item.icon}</span>
+                    <span className="flex-shrink-0">
+  <item.icon className="h-5 w-5" />
+</span>
                     <span>{item.name}</span>
                   </Link>
                 </li>

@@ -1,10 +1,13 @@
 // app/leads/[id]/page.jsx
-import { leads } from '@/lib/data';
+'use client';
+
+import { useLeads } from '@/lib/useLeads';
 import Link from 'next/link';
 import { format } from 'date-fns';
 
 export default function LeadDetailPage({ params }) {
-  const lead = leads.find(l => l.id === params.id);
+  const { leads: allLeads, updateLead } = useLeads();
+  const lead = allLeads.find(l => l.id === params.id);
 
   if (!lead) {
     return (
@@ -54,6 +57,10 @@ export default function LeadDetailPage({ params }) {
           <label className="block text-sm font-medium text-gray-500">Stage</label>
           <select
             defaultValue={lead.stage}
+            onChange={(e) => {
+              const updatedLead = { ...lead, stage: e.target.value };
+              updateLead(updatedLead);
+            }}
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
           >
             <option value="new">New</option>
