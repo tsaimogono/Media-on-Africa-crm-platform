@@ -1,8 +1,8 @@
 export const leads = [
   {
     id: 'lead-1',
-    name: 'Sarah Johnson',
-    email: 'sarah@email.com',
+    name: 'Themba moyo',
+    email: 'thembamoyo@gmail.com',
     phone: '(+27) 123-4567',
     type: 'buyer',
     stage: 'contacted',
@@ -22,7 +22,7 @@ export const leads = [
   },
   {
     id: 'lead-2',
-    name: 'Mike Chen',
+    name: 'jabu ndlovu',
     email: 'mike@chen.io',
     phone: '(+27) 987-6543',
     type: 'seller',
