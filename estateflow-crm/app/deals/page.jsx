@@ -36,7 +36,7 @@ export default function DealsPipeline() {
                     <h4 className="font-medium text-gray-800">{lead.name}</h4>
                     <p className="text-sm text-gray-600">{lead.type}</p>
                     <p className="text-xs text-gray-500 mt-1">{lead.location}</p>
-                    <p className="text-xs text-indigo-600 mt-1">${lead.budget}</p>
+                    <p className="text-xs text-indigo-600 mt-1">R{lead.budget}</p>
                   </div>
                 </Link>
               ))}
