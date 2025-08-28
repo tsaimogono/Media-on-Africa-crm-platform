@@ -97,7 +97,19 @@ export default function LeadDetailPage({ params }) {
                   {note.author.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-800">{note.text}</p>
+                  <p className="text-sm text-gray-800">
+                    {note.text}
+                    <button
+                      onClick={() => {
+                        const updatedNotes = lead.notes.filter(n => n.id !== note.id);
+                        const updatedLead = { ...lead, notes: updatedNotes };
+                        updateLead(updatedLead);
+                      }}
+                      className="ml-2 text-gray-400 hover:text-red-500 text-xs"
+                    >
+                      ✕
+                    </button>
+                  </p>
                   <p className="text-xs text-gray-500 mt-1">
                     Note • {format(new Date(), 'MMM d, yyyy')} • {note.author}
                   </p>
@@ -110,8 +122,32 @@ export default function LeadDetailPage({ params }) {
 
           {/* Add Note Form */}
           <div className="border-t pt-4 mt-4">
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const text = formData.get('note');
+
+                if (!text?.trim()) return;
+
+                const newNote = {
+                  id: `note-${Date.now()}`,
+                  text: text,
+                  author: 'Alex Morgan',
+                  date: new Date().toISOString(),
+                };
+
+                const updatedLead = {
+                  ...lead,
+                  notes: [newNote, ...lead.notes],
+                };
+                updateLead(updatedLead);
+
+                e.target.reset();
+              }}
+            >
               <textarea
+                name="note"
                 placeholder="Add a note about this lead..."
                 rows="3"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:ring-indigo-500 focus:border-indigo-500"
@@ -140,6 +176,13 @@ export default function LeadDetailPage({ params }) {
                   <input
                     type="checkbox"
                     checked={task.completed}
+                    onChange={() => {
+                      const updatedTasks = lead.tasks.map(t =>
+                        t.id === task.id ? { ...t, completed: !t.completed } : t
+                      );
+                      const updatedLead = { ...lead, tasks: updatedTasks };
+                      updateLead(updatedLead);
+                    }}
                     className="h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500"
                   />
                   <span className={`ml-3 text-sm ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
@@ -153,11 +196,48 @@ export default function LeadDetailPage({ params }) {
         ) : (
           <p className="text-gray-500 text-sm">No tasks assigned.</p>
         )}
-        <div className="mt-4">
-          <button className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-            + Add Task
-          </button>
-        </div>
+
+        {/* Add Task Form */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const title = formData.get('task');
+
+            if (!title?.trim()) return;
+
+            const newTask = {
+              id: `task-${Date.now()}`,
+              title,
+              due: 'Today',
+              completed: false,
+            };
+
+            const updatedLead = {
+              ...lead,
+              tasks: [...lead.tasks, newTask],
+            };
+            updateLead(updatedLead);
+
+            e.target.reset();
+          }}
+          className="mt-4"
+        >
+          <div className="flex gap-2">
+            <input
+              name="task"
+              type="text"
+              placeholder="Add a new task..."
+              className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="submit"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-lg transition"
+            >
+              Add
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

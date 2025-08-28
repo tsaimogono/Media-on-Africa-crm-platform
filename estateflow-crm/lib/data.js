@@ -1,7 +1,7 @@
 export const leads = [
   {
     id: 'lead-1',
-    name: 'Themba moyo',
+    name: 'Thato moyo',
     email: 'thembamoyo@gmail.com',
     phone: '(+27) 123-4567',
     type: 'buyer',
@@ -23,7 +23,7 @@ export const leads = [
   {
     id: 'lead-2',
     name: 'jabu ndlovu',
-    email: 'mike@chen.io',
+    email: 'jabuN@gmail.com',
     phone: '(+27) 987-6543',
     type: 'seller',
     stage: 'qualified',
