@@ -3,8 +3,17 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Settings } from 'lucide-react';
-import { LayoutDashboard, Phone, Users, Building2, Briefcase, CheckSquare, Settings } from 'lucide-react';
+
+// ✅ Import all icons once, without duplicates
+import {
+  LayoutDashboard,
+  Phone,
+  Users,
+  Building2,
+  Briefcase,
+  CheckSquare,
+  Settings as SettingsIcon,
+} from 'lucide-react';
 
 const menuItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['admin', 'agent', 'client'] },
@@ -13,8 +22,9 @@ const menuItems = [
   { name: 'Properties', href: '/properties', icon: Building2, roles: ['admin', 'agent'] },
   { name: 'Deals', href: '/deals', icon: Briefcase, roles: ['admin', 'agent'] },
   { name: 'Tasks', href: '/tasks', icon: CheckSquare, roles: ['admin', 'agent'] },
-  { name: 'Settings', href: '/settings', icon: Settings, roles: ['admin'] },
+  { name: 'Settings', href: '/settings', icon: SettingsIcon, roles: ['admin'] },
 ];
+
 export default function Sidebar({ user, isOpen, onClose }) {
   const pathname = usePathname();
 
@@ -45,34 +55,41 @@ export default function Sidebar({ user, isOpen, onClose }) {
           <ul className="space-y-1">
             {menuItems
               .filter((item) => user && item.roles.includes(user.role))
-              .map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center space-x-3 px-4 py-2.5 rounded-lg transition-colors
-                      ${
-                        pathname === item.href
-                          ? 'bg-indigo-100 text-indigo-700 font-semibold'
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }
-                    `}
-                  >
-                    <span className="flex-shrink-0">
-  <item.icon className="h-5 w-5" />
-</span>
-                    <span>{item.name}</span>
-                  </Link>
-                </li>
-              ))}
+              .map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className={`flex items-center space-x-3 px-4 py-2.5 rounded-lg transition-colors
+                        ${
+                          pathname === item.href
+                            ? 'bg-indigo-100 text-indigo-700 font-semibold'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }
+                      `}
+                    >
+                      <span className="flex-shrink-0">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span>{item.name}</span>
+                    </Link>
+                  </li>
+                );
+              })}
           </ul>
         </nav>
 
         {/* User Info */}
         <div className="p-4 border-t">
-          <p className="text-sm font-medium">{user?.name || 'Agent'}</p>
+          <p className="text-sm font-medium">{user?.name || 'User'}</p>
           <p className="text-xs text-gray-500 capitalize">
-            {user?.role === 'admin' ? 'Administrator' : user?.role || 'Agent'}
+            {user?.role === 'admin'
+              ? 'Administrator'
+              : user?.role
+                ? `${user.role.charAt(0).toUpperCase() + user.role.slice(1)}`
+                : 'Agent'}
           </p>
         </div>
       </aside>
