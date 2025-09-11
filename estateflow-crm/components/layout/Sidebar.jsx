@@ -3,8 +3,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
-// ✅ Import all icons once, without duplicates
+// ✅ Import icons once
 import {
   LayoutDashboard,
   Phone,
@@ -28,6 +29,18 @@ const menuItems = [
 export default function Sidebar({ user, isOpen, onClose }) {
   const pathname = usePathname();
 
+  // Prevent body scroll when sidebar is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   return (
     <>
       {/* Overlay for mobile */}
@@ -35,6 +48,7 @@ export default function Sidebar({ user, isOpen, onClose }) {
         <div
           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
           onClick={onClose}
+          aria-hidden="true"
         ></div>
       )}
 
@@ -81,7 +95,7 @@ export default function Sidebar({ user, isOpen, onClose }) {
           </ul>
         </nav>
 
-        {/* User Info */}
+        {/* User Info & Logout */}
         <div className="p-4 border-t">
           <p className="text-sm font-medium">{user?.name || 'User'}</p>
           <p className="text-xs text-gray-500 capitalize">
@@ -91,6 +105,15 @@ export default function Sidebar({ user, isOpen, onClose }) {
                 ? `${user.role.charAt(0).toUpperCase() + user.role.slice(1)}`
                 : 'Agent'}
           </p>
+          <button
+            onClick={() => {
+              // Simulate logout — in real app, clear session
+              window.location.href = '/login';
+            }}
+            className="w-full text-left text-sm text-red-600 hover:text-red-800 mt-2 px-2 py-1.5 rounded transition"
+          >
+            Log Out
+          </button>
         </div>
       </aside>
     </>
