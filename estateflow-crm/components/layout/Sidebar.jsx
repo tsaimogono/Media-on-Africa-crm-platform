@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Settings } from 'lucide-react';
 import { LayoutDashboard, Phone, Users, Building2, Briefcase, CheckSquare, Settings } from 'lucide-react';
 
 const menuItems = [
