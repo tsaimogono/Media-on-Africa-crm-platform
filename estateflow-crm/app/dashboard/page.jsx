@@ -2,24 +2,20 @@
 import { currentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
-// This is a Server Component – do NOT add 'use client'
-
 export default function DashboardPage() {
-  // Redirect based on user role
+  if (!currentUser.role) {
+    redirect('/login');
+  }
+
   if (currentUser.role === 'admin') {
     redirect('/admin/dashboard');
-  }
-
-  if (currentUser.role === 'agent') {
+  } else if (currentUser.role === 'agent') {
     redirect('/agent/dashboard');
+  } else if (currentUser.role === 'client') {
+    redirect(`/client/client-1/dashboard`);
+  } else {
+    redirect('/login');
   }
 
-  if (currentUser.role === 'client') {
-    // In a real app, you'd get the client ID from authentication
-    const clientId = 'client-1'; // Mock for now
-    redirect(`/client/${clientId}/dashboard`);
-  }
-
-  // If no valid role, redirect to login
-  redirect('/login');
+  return null;
 }
