@@ -3,6 +3,7 @@
 
 import { currentUser } from '@/lib/auth';
 import { useLeads } from '@/lib/useLeads';
+import { agents } from '@/lib/agents';
 import Link from 'next/link';
 
 export default function AdminDashboard() {

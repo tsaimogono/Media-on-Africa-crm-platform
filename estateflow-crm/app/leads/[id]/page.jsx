@@ -4,6 +4,7 @@
 import { useLeads } from '@/lib/useLeads';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import { agents } from '@/lib/agents'; // ✅ Import agents
 
 export default function LeadDetailPage({ params }) {
   const { leads: allLeads, updateLead } = useLeads();
@@ -78,9 +79,20 @@ export default function LeadDetailPage({ params }) {
         </div>
         <div className="flex-1 min-w-48">
           <label className="block text-sm font-medium text-gray-500">Assigned To</label>
-          <p className="mt-1 px-4 py-2 bg-gray-100 rounded-lg text-gray-800">
-            {lead.assignedTo}
-          </p>
+          <select
+            defaultValue={lead.assignedTo}
+            onChange={(e) => {
+              const updatedLead = { ...lead, assignedTo: e.target.value };
+              updateLead(updatedLead);
+            }}
+            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md"
+          >
+            {agents.map((agent) => (
+              <option key={agent.id} value={agent.name}>
+                {agent.name} ({agent.location})
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
