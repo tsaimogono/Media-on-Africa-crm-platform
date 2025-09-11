@@ -7,6 +7,20 @@ import { format } from 'date-fns';
 import { agents } from '@/lib/agents'; // ✅ Import agents
 
 export default function LeadDetailPage({ params }) {
+// 🔒 Access Control: Only admin and agent can view lead details
+  if (!['admin', 'agent'].includes(currentUser.role)) {
+    return (
+      <div className="p-6 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
+        <p className="text-gray-600 mt-2">You don't have permission to view this lead.</p>
+        <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
+          ← Back to Dashboard
+        </Link>
+      </div>
+    );
+  }
+
+
   const { leads: allLeads, updateLead } = useLeads();
   const lead = allLeads.find(l => l.id === params.id);
 

@@ -10,6 +10,19 @@ const propertyTypes = ['condo', 'single-family', 'townhouse', 'land', 'multi-fam
 const agents = ['Alex Morgan', 'Jordan Lee', 'Taylor Reed'];
 
 export default function DealsPipeline() {
+// 🔒 Access Control: Only admin and agent can view deals
+  if (!['admin', 'agent'].includes(currentUser.role)) {
+    return (
+      <div className="p-6 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
+        <p className="text-gray-600 mt-2">You don't have permission to view the sales pipeline.</p>
+        <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
+          ← Back to Dashboard
+        </Link>
+      </div>
+    );
+  }
+
   const { leads: allLeads, updateLead } = useLeads();
 
   // Filters
