@@ -33,7 +33,12 @@ export default function Navbar({ user, onToggleSidebar }) {
         <div className="flex items-center space-x-3">
           <span className="text-sm font-medium text-gray-700">{user?.name}</span>
           <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
-            {user?.name.split(' ').map(n => n[0]).toUpperCase().join('')}
+            {user?.name &&
+              user.name
+                .split(' ')
+                .map(word => word[0])
+                .join('')
+                .toUpperCase()}
           </div>
         </div>
       </div>
