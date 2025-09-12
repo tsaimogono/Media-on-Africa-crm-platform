@@ -1,15 +1,9 @@
 // lib/auth.js
 
-// Default user
-export let currentUser = {
-  id: 'user-1',
-  name: 'Alex Morgan',
-  email: 'alex@estateflow.com',
-  role: 'agent', // Change to 'admin' or 'client' after login
-  avatar: null,
-};
+// 👇 Start with NO authenticated user
+export let currentUser = null;
 
-// Simulated user database (for signup/login)
+// Simulated user database
 export const users = [
   { id: 'user-1', name: 'Alex Morgan', email: 'alex@estateflow.com', password: '123', role: 'agent' },
   { id: 'user-2', name: 'Thabo Nkosi', email: 'thabo@estateflow.com', password: '123', role: 'agent' },
@@ -43,7 +37,7 @@ export const signup = (name, email, password, role = 'client') => {
     id: `user-${users.length + 1}`,
     name,
     email,
-    password, // In real app: hash it
+    password,
     role,
   };
 
