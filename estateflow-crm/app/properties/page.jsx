@@ -19,8 +19,6 @@ export default function PropertiesPage() {
     );
   }
 
-
-
   const [filters, setFilters] = useState({
     type: '',
     location: '',

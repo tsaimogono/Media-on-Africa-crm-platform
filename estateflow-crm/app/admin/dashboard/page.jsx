@@ -7,6 +7,19 @@ import { agents } from '@/lib/agents';
 import Link from 'next/link';
 
 export default function AdminDashboard() {
+ // 🔒 Block non-admins
+  if (currentUser.role !== 'admin') {
+    return (
+      <div className="p-6 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
+        <p className="text-gray-600 mt-2">You don't have permission to view this dashboard.</p>
+        <a href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
+          ← Back to Dashboard
+        </a>
+      </div>
+    );
+  }
+
   const { leads } = useLeads();
 
   const totalLeads = leads.length;

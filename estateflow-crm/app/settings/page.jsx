@@ -5,15 +5,15 @@ import { currentUser } from '@/lib/auth';
 import { agents } from '@/lib/agents';
 
 export default function SettingsPage() {
-  // Access control
+  // 🔒 Only admin can access settings
   if (currentUser.role !== 'admin') {
     return (
       <div className="p-6 text-center">
         <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
-        <p className="text-gray-600 mt-2">You don't have permission to view settings.</p>
-        <a href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium inline-block mt-2">
+        <p className="text-gray-600 mt-2">Only administrators can access settings.</p>
+        <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
           ← Back to Dashboard
-        </a>
+        </Link>
       </div>
     );
   }

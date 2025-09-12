@@ -6,7 +6,20 @@ import { useLeads } from '@/lib/useLeads';
 import { useParams } from 'next/navigation';
 
 export default function ClientDashboard() {
+
   const { id } = useParams(); // e.g., 'client-1'
+    // 🔒 Only admin and agent can view
+  if (!['admin', 'agent'].includes(currentUser.role)) {
+    return (
+      <div className="p-6 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
+        <p className="text-gray-600 mt-2">You don't have permission to view this dashboard.</p>
+        <a href="/dashboard" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-block">
+          ← Back to Dashboard
+        </a>
+      </div>
+    );
+  }
   const { leads } = useLeads();
 
   // Simulate: find leads associated with this client
