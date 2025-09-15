@@ -4,7 +4,7 @@ export const agents = [
   {
     id: 'agent-1',
     name: 'Alex Morgan',
-    email: 'alex@estateflow.co',
+    email: 'alex@estateflow.co.za',
     phone: '+27 71 001 0001',
     role: 'Senior Agent',
     location: 'Cape Town, Western Cape',
@@ -17,7 +17,7 @@ export const agents = [
   {
     id: 'agent-2',
     name: 'Thabo Nkosi',
-    email: 'thabo@estateflow.co',
+    email: 'thabo@estateflow.co.za',
     phone: '+27 82 002 0002',
     role: 'Buyer Specialist',
     location: 'Durban, KwaZulu-Natal',
@@ -30,7 +30,7 @@ export const agents = [
   {
     id: 'agent-3',
     name: 'Lerato van Niekerk',
-    email: 'lerato@estateflow.co',
+    email: 'lerato@estateflow.co.za',
     phone: '+27 76 003 0003',
     role: 'Luxury Properties',
     location: 'Sandton, Gauteng',
@@ -43,7 +43,7 @@ export const agents = [
   {
     id: 'agent-4',
     name: 'Sipho Dlamini',
-    email: 'sipho@estateflow.co',
+    email: 'sipho@estateflow.co.za',
     phone: '+27 83 004 0004',
     role: 'Investment Advisor',
     location: 'Midrand, Gauteng',
